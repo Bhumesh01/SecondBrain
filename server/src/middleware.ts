@@ -16,13 +16,13 @@ export const authMiddleware = (req: CustomRequest, res: Response, next: NextFunc
 
     try {
         interface JwtPayload {
-            _id: string; 
+            id: string; 
         }
 
         const decode = jwt.verify(header, JWT_PASSWORD) as JwtPayload;
 
         if (decode) {
-            req.userId = decode._id;
+            req.userId = decode.id;
             next(); 
         } else {
             return res.status(401).json({ message: "Invalid token" });
