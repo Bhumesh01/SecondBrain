@@ -1,16 +1,16 @@
-import { authMiddleware } from "../middleware/middleware";
 import genHash from "../config/hash";
-import { Content, Link } from "../models/db";
+import {Types} from 'mongoose';
+import { Content, Link, Tag } from "../models/db";
 import {Request, Response} from 'express';
 import {z} from 'zod';
 // For Adding new content
 
-const objectIdString = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId format");
+// const objectIdString = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId format");
 const contentZodSchema = z.object({
     link: z.string().url("Invalid URL format").min(7, "Link is required"),
     type: z.enum(['video', 'article', 'image', 'audio', 'document', 'tweet', 'youtube', 'link']),
     title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title cannot exceed 200 characters"),
-    tags: z.array(objectIdString).optional()
+    tags: z.array(z.string()).optional()
 })
 interface CustomRequest extends Request {
     userId?: string;
@@ -25,12 +25,25 @@ export const postContent = async(req: CustomRequest,res: Response)=>{
         }
         const userId = req.userId;
         const content: z.infer<typeof contentZodSchema> = data;
+        let tagIds:Types.ObjectId[] = [];
+        if(content.tags){
+            const tagPromises = content.tags.map(async (tag) => {
+            const existingTag = await Tag.findOne({ title: tag });
+            if (!existingTag) {
+                const newTag = await Tag.create({ title: tag });
+                return newTag._id;
+            } else {
+                return existingTag._id;
+            }
+        });
+        tagIds = await Promise.all(tagPromises);
+        }
         await Content.create({
             link: content.link,
             type: content.type,
             title: content.title,
             userId: userId,
-            tags : content.tags
+            tags : tagIds
         });
         res.status(200).json({
             message: "Content Added Successfully",
