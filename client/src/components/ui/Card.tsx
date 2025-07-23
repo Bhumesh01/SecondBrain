@@ -45,7 +45,7 @@ export const Card = (props:CardProps)=>{
   const tweetId = props.type === "tweet" ? extractTweetId(props.link) : ""
   const youTubeId = props.type === "youtube" ? extractYouTubeId(props.link) : ""
     return(
-        <div className="bg-white w-full max-w-md py-5 px-8 rounded-3xl shadow-2xl border border-slate-200 flex justify-between flex-col max-h-[400px]">
+        <div className="bg-white w-90 max-w-md py-5 px-8 rounded-3xl shadow-2xl border border-slate-200 flex justify-between flex-col max-h-[400px]">
             <div className="flex gap-1 justify-between pb-2 pt-2">
                 <div className="flex gap-2 text-3xl">
                     <div className="flex justify-center items-center mr-2 text-purpleBlue-600">
