@@ -12,12 +12,12 @@ export function Dashboard() {
       <div className='sm:block hidden transition ease-in-out duration-200'>
         <SideBar />
       </div>
-      <div className='pt-5 ml-76'>
-        <div className=' flex p-2 flex-wrap'>
+      <div className='pt-5 sm:ml-76'>
+        <div className=' flex p-2 pt-5 gap-2 flex-wrap'>
           <div className='flex-[3] font-bold text-3xl pl-5'>
             All Notes
           </div>
-          <div className='flex-[2] flex gap-5 lg:gap-2 justify-around'>
+          <div className='flex-[2] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
             <Button variant="secondary" size="lg" text="Share Brain" onClick={()=>{alert("Hi")}} startIcon={<ShareIcon />}></Button>
             <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
           </div>

@@ -9,6 +9,7 @@ interface ButtonProps{
     startIcon?: ReactElement;
     endIcon ?: ReactElement;
     onClick: ()=> void;
+    loading ?: boolean;
 }
 const sizeClasses = {
     lg: "py-2 px-3",
@@ -17,21 +18,26 @@ const sizeClasses = {
 }
 type VariantStyles = Record<Variants, string>;
 const variantStyles: VariantStyles= {
-    "default": "font-medium rounded-md p-2 flex justify-between gap-2",
-    "primary": "bg-purpleBlue-600 transition duration-200 text-white hover:bg-purpleBlue-500 active:scale-75 active:bg-purpleBlue-500 cursor-pointer",
-    "secondary": "bg-purpleBlue-300 transition duration-200 text-purpleBlue-600 hover:bg-purpleBlue-100 active:scale-75 active:bg-purpleBlue-100 cursor-pointer"
+    "default": "font-medium rounded-md p-2 flex justify-around gap-2 items-center",
+    "primary": "bg-purpleBlue-600 transition duration-200 text-white hover:bg-purpleBlue-500 active:scale-75 active:bg-purpleBlue-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+    "secondary": "bg-purpleBlue-300 transition duration-200 text-purpleBlue-600 hover:bg-purpleBlue-100 active:scale-75 active:bg-purpleBlue-100 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
 }
 
 export const Button = (props:ButtonProps)=>{
     const sizeStyle = sizeClasses[props.size];
     return (
         <button
+            disabled={props.loading}
             onClick={props.onClick}
             className={`${sizeStyle} ${variantStyles["default"]} ${props.variant === "primary" ? variantStyles["primary"] : variantStyles["secondary"]}`}
         >
             {props.startIcon}
             {props.text}
             {props.endIcon}
+            {props.loading&&<svg className="ml-3 w-5 h-5 animate-spin shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeOpacity="0.75"/>
+            </svg>}
         </button>
     );
 }
