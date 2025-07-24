@@ -18,8 +18,8 @@ const sizeClasses = {
 type VariantStyles = Record<Variants, string>;
 const variantStyles: VariantStyles= {
     "default": "font-medium rounded-md p-2 flex justify-between gap-2",
-    "primary": "bg-purpleBlue-600 text-white hover:bg-purpleBlue-500",
-    "secondary": "bg-purpleBlue-300 text-purpleBlue-600 hover:bg-purpleBlue-100"
+    "primary": "bg-purpleBlue-600 transition duration-200 text-white hover:bg-purpleBlue-500 active:scale-75 active:bg-purpleBlue-500 cursor-pointer",
+    "secondary": "bg-purpleBlue-300 transition duration-200 text-purpleBlue-600 hover:bg-purpleBlue-100 active:scale-75 active:bg-purpleBlue-100 cursor-pointer"
 }
 
 export const Button = (props:ButtonProps)=>{

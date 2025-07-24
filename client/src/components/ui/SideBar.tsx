@@ -8,27 +8,27 @@ import { LinkIcon } from "../../icons/linkIcon"
 
 export const SideBar = () => {
   return (
-    <div className="bg-white shadow-2xl rounded-r-3xl p-3 h-full flex flex-col">
+    <div className="bg-white shadow-2xl rounded-r-3xl p-3 h-full flex flex-col w-76 fixed inset-0 z-[9999] border-r border-bgGray-200">
       <div className="flex pb-10 gap-5 flex-wrap">
         <div>
           <img width={150} src={Logo || "/placeholder.svg"} alt="Brain Logo" />
         </div>
-        <div className="flex justify-center items-center font-bold text-4xl ml-2">Second Brain</div>
+        <div className="flex justify-center items-center font-bold text-4xl ml-2">Brainly</div>
       </div>
-      <div className="p-2 flex flex-col gap-5 justify-start flex-1">
-        <div className="rounded-3xl hover:bg-bgGray-100 transition-colors duration-200">
+      <div className="p-2 flex flex-col gap-5 justify-start flex-1 w-48">
+        <div className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100">
           <Item icon={<TwitterIcon />} type="Tweets" />
         </div>
-        <div className="rounded-3xl hover:bg-bgGray-100 transition-colors duration-200">
+        <div className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<YoutubeIcon />} type="YouTube Links" />
         </div>
-        <div className="rounded-3xl hover:bg-bgGray-100 transition-colors duration-200">
+        <div className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<DocumentIcon />} type="Documents" />
         </div>
-        <div className="rounded-3xl hover:bg-bgGray-100 transition-colors duration-200">
+        <div className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<ImageIcon />} type="Images" />
         </div>
-        <div className="rounded-3xl hover:bg-bgGray-100 transition-colors duration-200">
+        <div className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<LinkIcon />} type="Links" />
         </div>
       </div>
