@@ -2,10 +2,12 @@ import { useRef, useState } from "react"
 import { Button } from "../components/ui/Button"
 import Logo from "../icons/brain.svg"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const url = import.meta.env.VITE_BACKEND_URL
 
 export function SignUp() {
+  const navigate = useNavigate();
   const [displayMessage, setDisplayMessage] = useState<string>("")
   const [usernameError, setUsernameError] = useState<string>("")
   const [passwordError, setPasswordError] = useState<string>("")
@@ -33,9 +35,12 @@ export function SignUp() {
         })
         console.log(response.data)
         setDisplayMessage(response.data.message)
+        setTimeout(()=>{
+            navigate("/signin")
+        }, 2000)
       }
       else{
-        setError("ALL credentials are required")
+        setError("All credentials are required")
       }
     } catch (err: any) {
       if (err.response?.status === 400) {
