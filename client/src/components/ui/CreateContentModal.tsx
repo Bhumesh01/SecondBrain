@@ -7,7 +7,7 @@ interface CreateContentModalProps {
   onClose: ()=>void;
 }
 export function CreateContentModal(props:CreateContentModalProps){
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     return(
         <div>
             {props.open && (

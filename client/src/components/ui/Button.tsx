@@ -5,7 +5,7 @@ type Variants = "primary"|"secondary"|"default";
 interface ButtonProps{
     variant: "primary"|"secondary",
     size: "lg"|"xl"|"2xl",
-    text: string,
+    text: string|boolean,
     startIcon?: ReactElement;
     endIcon ?: ReactElement;
     onClick: ()=> void;
