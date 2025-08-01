@@ -7,7 +7,7 @@ import {z} from 'zod';
 
 // const objectIdString = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId format");
 const contentZodSchema = z.object({
-    link: z.string().url("Invalid URL format").min(7, "Link is required"),
+    link: z.string().min(7, "Link is required"),
     type: z.enum(['video', 'article', 'image', 'audio', 'document', 'tweet', 'youtube', 'link']),
     title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title cannot exceed 200 characters"),
     tags: z.array(z.string()).optional()
