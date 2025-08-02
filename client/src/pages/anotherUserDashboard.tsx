@@ -26,8 +26,8 @@ export function AnotherDashboard() {
     
     return (
     <div className='bg-bgGray-100 min-h-screen min-w-screen flex justify-center'>
-      <div className='pt-5'>
-        <div className=' flex p-2 pt-5 gap-2 flex-wrap font-bold text-3xl justify-around'>
+      <div>
+        <div className=' flex p-2 pt-5 gap-2 flex-wrap font-bold text-3xl justify-around w-screen bg-purpleBlue-600 text-white'>
             All Notes
         </div>
         {loading?<div className="flex items-center justify-center h-[70vh] w-full flex-col gap-4 text-xl text-gray-600">
@@ -44,8 +44,14 @@ export function AnotherDashboard() {
         <div className="animate-pulse">Fetching your Links...</div>
         </div>:
             <div className='flex gap-10 flex-wrap justify-center pt-10'>
-          {data?.map(({type, link, title, tags}, id)=> <Card key={id} title={title} type={type} link={link} tags={tags} />)}
+          {data?.map(({type, link, title, tags}, id)=> <Card isShared={false} key={id} title={title} type={type} link={link} tags={tags} />)}
         </div>}
+        {data.length === 0 && (
+        <div className="mt-20 flex justify-center">
+          <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-md text-center">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">No Posts Available</h2>
+            </div>
+        </div>)}
       </div>
     </div>
   )

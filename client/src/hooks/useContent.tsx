@@ -5,7 +5,8 @@ export interface ContextTypes{
     link: string,
     type: 'video'| 'article'| 'image'| 'audio'| 'document'| 'tweet'| 'youtube'| 'link',
     title: string,
-    tags: Tag[]
+    tags: Tag[],
+    _id?: string
 }
 const url = import.meta.env.VITE_BACKEND_URL
 export function useContent(){
