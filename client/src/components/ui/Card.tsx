@@ -11,11 +11,15 @@ import { DeleteIcon } from "../../icons/deleteIcon"
 import { Tweet } from 'react-tweet';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+export interface Tag {
+  _id: string;
+  title: string;
+}
 interface CardProps {
     "title": string,
-    "type": 'article'|'image'|'audio'|'document'|'tweet'|'youtube'|'link',
+    "type": 'video'| 'article'| 'image'| 'audio'| 'document'| 'tweet'| 'youtube'| 'link',
     "link": string,
-    "tags"?: string[],
+    "tags"?: Tag[],
     "heading" ?:  string,
     "other" ?: ReactElement;
 }
@@ -67,8 +71,8 @@ export const Card = (props:CardProps)=>{
             <div className="pb-5 flex-1 overflow-y-auto">
                 {props.type === "link"?(<a target="_blank" rel="noopener noreferrer" href={props.link} className="text-lg text-blue-800 hover:text-purpleBlue-500 break-words">{props.link}</a>):props.type === "tweet" && tweetId?(<Tweet id={tweetId} />):props.type === "youtube"&& youTubeId?(<LiteYouTubeEmbed id={youTubeId} title={props.title}poster="maxresdefault" />): props.type === "image" ? (<img src={props.link || "/placeholder.svg"} alt={props.title}className="w-full h-auto rounded-lg object-cover"/>) : ( <div className="text-lg break-words">{props.link}</div>)}
             </div>
-            <div className="flex gap-5">
-                {(props.tags||[]).map((tag, index)=><span key={index} className="bg-purpleBlue-300 text-purpleBlue-600 rounded-2xl py-1 px-3">#{tag}</span>)}
+            <div className="flex gap-5 flex-wrap">
+                {(props.tags||[]).map((tag, index)=><span key={index} className="bg-purpleBlue-300 text-purpleBlue-600 rounded-2xl py-1 px-3">#{tag.title}</span>)}
             </div>
         </div>
     )
