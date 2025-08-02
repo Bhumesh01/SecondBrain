@@ -3,12 +3,15 @@ import { Card } from '../components/ui/Card'
 import { PlusIcon } from '../icons/plusIcon'
 import { ShareIcon } from '../icons/shareIcon'
 import { SideBar } from '../components/ui/SideBar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CreateContentModal } from '../components/ui/CreateContentModal'
 import { useContent } from '../hooks/useContent'
 export function Dashboard() {
   const [ModalOpen, setModalOpen] = useState(false);
-  const contents  = useContent();
+  const {contents, refresh}  = useContent();
+  useEffect(()=>{
+    refresh;
+  }, [ModalOpen])
   return (
     <div className='bg-bgGray-100 min-h-screen min-w-screen flex'>
       <div className='sm:block hidden transition ease-in-out duration-200'>

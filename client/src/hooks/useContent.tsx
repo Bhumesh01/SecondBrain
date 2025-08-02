@@ -9,19 +9,28 @@ interface ContextTypes{
 }
 const url = import.meta.env.VITE_BACKEND_URL
 export function useContent(){
-    try{
-        const [contents, setContents] = useState<ContextTypes[]>([])
-        useEffect(function(){
-            axios.get(`${url}/api/v1/content`, {
+    const [contents, setContents] = useState<ContextTypes[]>([]);
+    function refresh(){
+        axios.get(`${url}/api/v1/content`, {
                     headers:{
                         "Authorization": localStorage.getItem("token"),
                     }
             }).then((response)=>{
                 setContents(response.data.contents)})
+    }
+    try{
+        useEffect(function(){
+            let interval = setInterval(()=>{
+                refresh()
+            }, 10*1000)
+            return ()=>{
+                clearInterval(interval);
+            }
         }, []);
-        return contents;
+        return {contents, refresh};
      }
-    catch(error){
-
+    catch(error:any){
+        setContents(error);
+        return {contents, refresh};
     }
 }

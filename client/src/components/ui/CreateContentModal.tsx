@@ -3,6 +3,7 @@ import { CrossIcon } from "../../icons/crossIcon";
 import { BulbIcon } from "../../icons/bulbIcon";
 import { Button } from "./Button";
 import axios from "axios";
+import { useContent } from "../../hooks/useContent";
 interface CreateContentModalProps {
   open: boolean;
   onClose: ()=>void;
@@ -18,6 +19,7 @@ export function CreateContentModal(props:CreateContentModalProps){
     const titleRef = useRef<HTMLInputElement>(null);
     const typeRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
+    const {refresh} = useContent();
     const tagsRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -48,6 +50,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                 console.log(response.data);
                 setDisplayMessage(response.data.message)
                 setTimeout(()=>{
+                    refresh();
                     props.onClose();
                     setDisplayMessage("");
                 }, 1000);
