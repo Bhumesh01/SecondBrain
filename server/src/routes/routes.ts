@@ -10,6 +10,6 @@ router.post("/content", authMiddleware, postContent);
 router.get("/content", authMiddleware, showContent);
 router.delete("/content", authMiddleware, deleteContent);
 router.post("/brain/share", authMiddleware, shareLink);
-router.get("/brain/:shareLink", authMiddleware, getLink);
+router.get("/brain/:shareLink", getLink);
 
 export default router;
