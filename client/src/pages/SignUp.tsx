@@ -47,7 +47,10 @@ export function SignUp() {
         setUsernameError(err.response.data.usernameErrors?.[0] || "")
         setPasswordError(err.response.data.passwordErrors?.[0] || "")
       } else if (err.response?.status === 403) {
-        setError(err.response.data.message)
+        setError(err.response.data.message + "! You are being redirected to signin page")
+        setTimeout(()=>{
+          navigate("/signin")
+        }, 5000)
       } else {
         setError("Something went wrong")
       }
