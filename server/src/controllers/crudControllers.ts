@@ -77,7 +77,7 @@ export const showContent = async (req: CustomRequest,res: Response)=>{
 // For Deleting a document
 export const deleteContent = async(req: CustomRequest,res: Response)=>{
     try{
-        const contentId = req.body.contentId;
+        const contentId = req.params.contentId;
         const response = await Content.deleteOne({
             _id: contentId,
             userId: req.userId

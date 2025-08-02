@@ -8,7 +8,7 @@ router.post("/signup", signup);
 router.post("/signin", login);
 router.post("/content", authMiddleware, postContent);
 router.get("/content", authMiddleware, showContent);
-router.delete("/content", authMiddleware, deleteContent);
+router.delete("/content/:contentId", authMiddleware, deleteContent);
 router.post("/brain/share", authMiddleware, shareLink);
 router.get("/brain/:shareLink", getLink);
 
