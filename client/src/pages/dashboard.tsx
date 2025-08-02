@@ -6,11 +6,14 @@ import { SideBar } from '../components/ui/SideBar'
 import { useEffect, useState } from 'react'
 import { CreateContentModal } from '../components/ui/CreateContentModal'
 import { useContent } from '../hooks/useContent'
+import axios from 'axios'
+const url = import.meta.env.VITE_BACKEND_URL
+const frontendUrl = import.meta.env.VITE_FRONTEND_URL
 export function Dashboard() {
   const [ModalOpen, setModalOpen] = useState(false);
   const {contents, refresh}  = useContent();
   useEffect(()=>{
-    refresh;
+    refresh();
   }, [ModalOpen])
   return (
     <div className='bg-bgGray-100 min-h-screen min-w-screen flex'>
@@ -23,7 +26,18 @@ export function Dashboard() {
             All Notes
           </div>
           <div className='flex-[2] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
-            <Button variant="secondary" size="lg" text="Share Brain" onClick={()=>{alert("Hi")}} startIcon={<ShareIcon />}></Button>
+            <Button variant="secondary" size="lg" text="Share Brain" onClick={()=>{
+              axios.post(`${url}/api/v1/brain/share`, {
+                share: "true"
+              }, {
+                headers:{
+                  Authorization: localStorage.getItem("token")
+                }
+              }).then(response=>{
+                let shareUrl = response.data.shareUrl.split("brain/")[1];
+                alert(`Your Url is: ${frontendUrl}/brain/${shareUrl}`)
+              })
+            }} startIcon={<ShareIcon />}></Button>
             <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
           </div>
         </div>

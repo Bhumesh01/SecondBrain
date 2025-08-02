@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type{ Tag } from "../components/ui/Card";
-interface ContextTypes{
+export interface ContextTypes{
     link: string,
     type: 'video'| 'article'| 'image'| 'audio'| 'document'| 'tweet'| 'youtube'| 'link',
     title: string,
