@@ -62,7 +62,7 @@ export const showContent = async (req: CustomRequest,res: Response)=>{
         const userId = req.userId;
         const userContent = await Content.find({
             userId: userId,
-        }).populate("userId", "username");
+        }).populate("userId", "username").populate("tags", "title");
         return res.status(200).json({
             contents: userContent
         })
@@ -139,7 +139,7 @@ export const getLink = async (req: Request,res: Response)=>{
         const hash = req.params.shareLink;
         const linkDoc = await Link.findOne({hash: hash});
         if(linkDoc){
-            const contents = await Content.find({userId: linkDoc.userId}).populate("userId", "username");
+            const contents = await Content.find({userId: linkDoc.userId}).populate("userId", "username").populate("tags", "title");
             return res.status(200).json({
                 message: contents
             });
