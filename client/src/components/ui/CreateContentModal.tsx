@@ -9,7 +9,7 @@ interface CreateContentModalProps {
   onClose: ()=>void;
 }
 
-const url = import.meta.env.VITE_BACKEND_URL;
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 export function CreateContentModal(props:CreateContentModalProps){
     const [isLoading, setIsLoading] = useState(false);

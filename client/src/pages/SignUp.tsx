@@ -4,7 +4,7 @@ import Logo from "../icons/brain.svg"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-const url = import.meta.env.VITE_BACKEND_URL
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
 export function SignUp() {
   const navigate = useNavigate();

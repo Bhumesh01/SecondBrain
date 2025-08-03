@@ -16,7 +16,7 @@ export interface Tag {
   _id: string;
   title: string;
 }
-const url = import.meta.env.VITE_BACKEND_URL;
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 interface CardProps {
     "title": string,
     "type": 'video'| 'article'| 'image'| 'audio'| 'document'| 'tweet'| 'youtube'| 'link',

@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react'
 import { CreateContentModal } from '../components/ui/CreateContentModal'
 import { useContent } from '../hooks/useContent'
 import axios from 'axios'
-const url = import.meta.env.VITE_BACKEND_URL
-const frontendUrl = import.meta.env.VITE_FRONTEND_URL
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
+const frontendUrl = import.meta.env.VITE_REACT_APP_FRONTEND_URL
 export function Dashboard() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");

@@ -4,7 +4,7 @@ import { Card } from "../components/ui/Card"
 import type{ ContextTypes } from "../hooks/useContent"
 import axios from "axios"
 
-const url = import.meta.env.VITE_BACKEND_URL
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 export function AnotherDashboard() {
     const [loading, setLoading] = useState<boolean>(true);
     const {shareId} = useParams();

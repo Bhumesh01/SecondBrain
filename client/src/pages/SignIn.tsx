@@ -4,7 +4,7 @@ import { Button } from "../components/ui/Button"
 import Logo from "../icons/brain.svg"
 import axios from "axios"
 
-const url = import.meta.env.VITE_BACKEND_URL
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
 export function SignIn() {
   const navigate = useNavigate();

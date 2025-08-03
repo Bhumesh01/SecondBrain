@@ -8,7 +8,7 @@ export interface ContextTypes{
     tags: Tag[],
     _id?: string
 }
-const url = import.meta.env.VITE_BACKEND_URL
+const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 export function useContent(){
     const [contents, setContents] = useState<ContextTypes[]>([]);
     function refresh(){
