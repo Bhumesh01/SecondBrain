@@ -22,8 +22,8 @@ export function Dashboard() {
       <div className='sm:block hidden transition ease-in-out duration-200'>
         <SideBar />
       </div>
-      <div className='pt-5 sm:ml-76'>
-        <div className=' flex p-2 pt-5 gap-2 flex-wrap'>
+      <div className='pt-5 sm:ml-76 w-full'>
+        <div className=' flex p-2 pt-5 flex-wrap'>
           <div className='flex-[3] font-bold text-3xl pl-5'>
             All Notes
           </div>
@@ -45,7 +45,7 @@ export function Dashboard() {
         </div>
         <CreateContentModal open={ModalOpen} onClose={()=>{setModalOpen(false)}}/>
           {message&&(
-            <div className=" bg-green-500 border border-green-600 rounded-lg p-4 text-green-100 font-semibold backdrop-blur-sm">
+            <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-green-500 border border-green-600 rounded-lg p-4 text-white font-semibold backdrop-blur-sm">
               <div className="flex items-center space-x-2 gap-1 justify-center">
                 <span className="text-green-300">✓</span>
                 <span>{message}</span>
@@ -53,7 +53,7 @@ export function Dashboard() {
             </div>
           )}
             {error&&(
-            <div className="bg-red-600 border border-red-500 rounded-lg p-4 text-red-100 font-semibold backdrop-blur-sm">
+            <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-red-600 border border-red-500 rounded-lg p-4 text-white font-semibold backdrop-blur-sm">
               <div className="flex items-center space-x-2 gap-1 justify-center">
                 <span className="text-red-300">⚠</span>
                 <span>{error}</span>

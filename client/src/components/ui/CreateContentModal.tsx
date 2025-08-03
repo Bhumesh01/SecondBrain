@@ -143,7 +143,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                             <ul className="list-decimal text-purpl list-inside text-lg font-medium">
                               <li>article</li>
                               <li>image</li>
-                              <li>audio</li>
+                              {/* <li>audio</li> */}
                               <li>document</li>
                               <li>tweet</li>
                               <li>youtube</li>
