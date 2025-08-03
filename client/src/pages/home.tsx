@@ -24,7 +24,7 @@ export default function Home() {
         GitHub
       </a>
       <a
-        href="mailto:your-bhumeshmahajan01@gmail.com"
+        href="mailto:bhumeshmahajan01@gmail.com"
         className="hover:hover:bg-purpleBlue-500/90 p-2 sm:px-4 sm:py-1.5 rounded-full transition"
       >
         Contact
