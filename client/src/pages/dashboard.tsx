@@ -37,7 +37,8 @@ export function Dashboard() {
                 }
               }).then(response=>{
                 let shareUrl = response.data.shareUrl.split("brain/")[1];
-                alert(`Your Url is: ${frontendUrl}/brain/${shareUrl}`)
+                navigator.clipboard.writeText(`${frontendUrl}/brain/${shareUrl}`);
+                alert(`Url copied to clipboard: ${frontendUrl}/brain/${shareUrl}`)
               })
             }} startIcon={<ShareIcon />}></Button>
             <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
