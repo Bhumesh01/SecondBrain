@@ -82,8 +82,8 @@ npm install
 ## ⚙️ Environment Variables
 -  client/.env
 ```env
-VITE_BACKEND_URL=http://localhost:3000
-VITE_FRONTEND_URL=http://localhost:5173
+VITE_REACT_APP_BACKEND_URL=http://localhost:3000
+VITE_REACT_APP_FRONTEND_URL=http://localhost:5173
 ```
 - server/.env
 ```env
