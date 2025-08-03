@@ -5,10 +5,12 @@ import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { AnotherDashboard } from './pages/anotherUserDashboard'
 import { ComingSoon } from './pages/comingSoon'
+import Home from './pages/home'
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Home />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
