@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { AnotherDashboard } from './pages/anotherUserDashboard'
+import { ComingSoon } from './pages/comingSoon'
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,11 @@ function App() {
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/brain/:shareId' element={<AnotherDashboard />}></Route>
+        <Route path='/tweets' element={<ComingSoon />}></Route>
+        <Route path='/youtube' element={<ComingSoon />}></Route>
+        <Route path='/articles' element={<ComingSoon />}></Route>
+        <Route path='/images' element={<ComingSoon />}></Route>
+        <Route path='/links' element={<ComingSoon />}></Route>
       </Routes>
     </BrowserRouter>
   )
