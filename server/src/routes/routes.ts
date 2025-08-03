@@ -4,6 +4,9 @@ import { signup, login } from "../controllers/authControllers";
 import { postContent, showContent, getLink, shareLink, deleteContent } from "../controllers/crudControllers";
 const router = Router();
 
+router.get("/", (req, res)=>{
+    res.send("Backend is Running")
+})
 router.post("/signup", signup);
 router.post("/signin", login);
 router.post("/content", authMiddleware, postContent);
