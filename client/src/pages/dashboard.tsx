@@ -10,6 +10,7 @@ import axios from 'axios'
 const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 const frontendUrl = import.meta.env.VITE_REACT_APP_FRONTEND_URL
 export function Dashboard() {
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [ModalOpen, setModalOpen] = useState(false);
@@ -28,7 +29,8 @@ export function Dashboard() {
             All Notes
           </div>
           <div className='flex-[2] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
-            <Button variant="secondary" size="lg" text="Share Brain" onClick={()=>{
+            <Button loading={loading} variant="secondary" size="lg" text="Share Brain" onClick={()=>{
+              setLoading(true);
               axios.post(`${url}/api/v1/brain/share`, {
                 share: "true"
               }, {
@@ -38,7 +40,8 @@ export function Dashboard() {
               }).then(response=>{
                 let shareUrl = response.data.shareUrl.split("brain/")[1];
                 navigator.clipboard.writeText(`${frontendUrl}/brain/${shareUrl}`);
-                alert(`Url copied to clipboard: ${frontendUrl}/brain/${shareUrl}`)
+                alert(`Url copied to clipboard: ${frontendUrl}/brain/${shareUrl}`);
+                setLoading(false);
               })
             }} startIcon={<ShareIcon />}></Button>
             <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
