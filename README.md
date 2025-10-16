@@ -11,7 +11,6 @@
 ## 📝 Overview
 Second Brain is a full-stack productivity application that helps users organize digital resources like links, tweets, and messages. Built with the MERN stack (MongoDB, Express, React, Node.js) using TypeScript for type safety.
 
-[![Demo Thumbnail](images/demo-thumbnail.png)](https://drive.google.com/file/d/1FJ4kcf7dlkoeM_-8ynNrsf807dFoojxd/view?usp=drive_link)
 Watch the full demo here: [Google Drive Video](https://drive.google.com/file/d/1mlITm7Lf_kdK-BQdmlTfOLheBr-usBTk/view?usp=sharing)
 
 ## 🚀 Key Features
