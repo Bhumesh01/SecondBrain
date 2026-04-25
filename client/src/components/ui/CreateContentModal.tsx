@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { CrossIcon } from "../../icons/crossIcon";
-import { BulbIcon } from "../../icons/bulbIcon";
 import { Button } from "./Button";
 import axios from "axios";
 import { useContent } from "../../hooks/useContent";
@@ -15,9 +14,8 @@ export function CreateContentModal(props:CreateContentModalProps){
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string|null>(null);
     const [displayMessage, setDisplayMessage] = useState<string|null>(null);
-    const [show, setShow] = useState(true);
     const titleRef = useRef<HTMLInputElement>(null);
-    const typeRef = useRef<HTMLInputElement>(null);
+    const typeRef = useRef<HTMLSelectElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const {refresh} = useContent();
     const tagsRef = useRef<HTMLInputElement>(null);
@@ -128,28 +126,18 @@ export function CreateContentModal(props:CreateContentModalProps){
                        <div className="ml-3 mr-3 mb-3">
                             <Input required={true} placeholder="Enter the Title" ref={titleRef} onChange={()=>{}}/>
                             <div className="flex justify-between">
+                              <h3 className="flex justify-center items-center mr-5 font-semibold text-lg">Select the content Type: </h3>
                                 <div className="flex-1">
-                                    <Input required={true} ref={typeRef} placeholder="Enter the Content Type" onChange={()=>{}}/>
-                                </div>
-                                <div onClick={()=>setShow(curr=>!curr)} className="flex cursor-pointer items-center transition  ease-in-out duration-500 active:scale-75 active:bg-yellow-300 hover:bg-yellow-300 p-2 ml-2 mb-2 rounded-2xl">
-                                    <BulbIcon />
+                                    <select required={true} ref={typeRef} className="bg-purpleBlue-300 border border-black  text-blue-950 p-4 rounded-xl shadow-lg mb-2">
+                                      <option value={"article"}>Article</option>
+                                      <option value={"image"}>Image</option>
+                                      <option value={"document"}>Document</option>
+                                      <option value={"tweet"}>Tweet</option>
+                                      <option value={"youtube"}>Youtube</option>
+                                      <option value={"link"}>Link</option>
+                                    </select>
                                 </div>
                             </div>
-                            {show&&<div className="absolute top-0 left-0 m-4 bg-purpleBlue-300 outline outline-purpleBlue-500 border-l-4 border-purpleBlue-500 text-blue-950 p-4 rounded-xl shadow-lg">
-                            <div className="font-semibold text-xl mb-2 flex justify-between items-center">
-                                <div>Allowed Types:</div>
-                                <div className="ml-5 cursor-pointer relative -top-2 transition  ease-in-out duration-500 bg-red-600 rounded-xl p-1 active:scale-75 active:bg-red-400 hover:bg-red-400" onClick={()=>setShow(curr=>!curr)}><CrossIcon /></div>
-                            </div>
-                            <ul className="list-decimal text-purpl list-inside text-lg font-medium">
-                              <li>article</li>
-                              <li>image</li>
-                              {/* <li>audio</li> */}
-                              <li>document</li>
-                              <li>tweet</li>
-                              <li>youtube</li>
-                              <li>link</li>
-                            </ul>
-                            </div>}
                             <Input ref={linkRef} required={true} placeholder="Enter the Link to save/Contents of body" onChange={()=>{}}/>
                             <Input ref={tagsRef} required={false} placeholder="Enter tags (comma separated)(optional)" onChange={()=>{}}/>
                             <div  className={`flex justify-center mt-2 ${isLoading ? "opacity-75 cursor-not-allowed" : ""}`}>
