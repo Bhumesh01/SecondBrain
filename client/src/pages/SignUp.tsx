@@ -107,6 +107,11 @@ export function SignUp() {
               placeholder="Enter your password"
               ref={passwordRef}
               disabled={isLoading}
+              onKeyDown={(e)=>{
+                if(e.key === "Enter"){
+                    signup();
+                }
+            }}
               className="w-full px-4 py-3 bg-white/10 border border-purpleBlue-100/40 rounded-xl text-slate-900 placeholder:text-slate-900/60 focus:outline-none focus:ring-2 focus:ring-purpleBlue-100 focus:border-purpleBlue-100/60 transition-all duration-200 disabled:opacity-50"
             />
             {passwordError && (

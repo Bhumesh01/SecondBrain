@@ -128,7 +128,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                             <div className="flex justify-between">
                               <h3 className="flex justify-center items-center mr-5 font-semibold text-lg">Select the content Type: </h3>
                                 <div className="flex-1">
-                                    <select required={true} ref={typeRef} className="bg-purpleBlue-300 border border-black  text-blue-950 p-4 rounded-xl shadow-lg mb-2">
+                                    <select required={true} ref={typeRef} className="w-full mb-2 break-words px-4 py-2 bg-bgGray-200 rounded-2xl border text-black">
                                       <option value={"article"}>Article</option>
                                       <option value={"image"}>Image</option>
                                       <option value={"document"}>Document</option>
