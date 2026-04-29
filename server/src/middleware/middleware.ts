@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-
-const JWT_PASSWORD = "bhumesh01";
+import dotenv from "dotenv";
+dotenv.config();
+const JWT_PASSWORD = process.env.JWT_PASSWORD!;
 
 interface CustomRequest extends Request {
     userId?: string;
