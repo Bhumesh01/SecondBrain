@@ -19,7 +19,7 @@ export const SideBar = () => {
       </div>
       <div className="p-2 flex flex-col gap-5 justify-start flex-1 w-48">
         <div onClick={()=>{
-          navigate("/tweets")
+          navigate("/tweet")
         }} className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100">
           <Item icon={<TwitterIcon />} type="Tweets" />
         </div>
@@ -29,17 +29,17 @@ export const SideBar = () => {
           <Item icon={<YoutubeIcon />} type="YouTube Links" />
         </div>
         <div onClick={()=>{
-          navigate("/articles")
+          navigate("/article")
         }} className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<DocumentIcon />} type="Articles" />
         </div>
         <div onClick={()=>{
-          navigate("/images")
+          navigate("/image")
         }} className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<ImageIcon />} type="Images" />
         </div>
         <div onClick={()=>{
-          navigate("/links")
+          navigate("/link")
         }} className="transition ease-in-out active:scale-100 cursor:pointer active:bg-bgGray-200 hover:scale-75 rounded-3xl hover:bg-bgGray-100 duration-200">
           <Item icon={<LinkIcon />} type="Links" />
         </div>
