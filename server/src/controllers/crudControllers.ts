@@ -1,5 +1,5 @@
 import genHash from "../config/hash";
-import {Types} from 'mongoose';
+import mongoose, {Types} from 'mongoose';
 import { Content, Link, Tag } from "../models/db";
 import {Request, Response} from 'express';
 import {z} from 'zod';
@@ -15,6 +15,7 @@ const contentZodSchema = z.object({
 interface CustomRequest extends Request {
     userId?: string;
 }
+const contentTypes = ['video', 'article', 'image', 'audio', 'document', 'tweet', 'youtube', 'link'];
 export const postContent = async(req: CustomRequest,res: Response)=>{
     try{
         const {success, data, error} = contentZodSchema.safeParse(req.body);
@@ -60,6 +61,11 @@ export const postContent = async(req: CustomRequest,res: Response)=>{
 export const showContent = async (req: CustomRequest,res: Response)=>{
     try{
         const userId = req.userId;
+        if(!userId){
+            return res.status(404).json({
+                message: "Unauthorized"
+            })
+        }
         const userContent = await Content.find({
             userId: userId,
         }).populate("userId", "username").populate("tags", "title");
@@ -154,3 +160,28 @@ export const getLink = async (req: Request,res: Response)=>{
         })
     }
 };
+
+// getting the content by a type
+export const getContentByType = async (req:CustomRequest, res: Response)=>{
+    try{
+        const contentType = req.params.id;
+        if(!contentType|| !contentTypes.includes(contentType)){
+            return res.status(400).json({
+                message: "Invalid data",
+            });
+        }
+        const userId = req.userId;
+        const userContent = await Content.find({
+            userId: userId,
+            type: contentType
+        });
+        res.status(200).json({
+            contents: userContent
+        });
+    }
+    catch(error){
+        return res.status(400).json({
+            message: error
+        });
+    }
+}
