@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { CreateContentModal } from '../components/ui/CreateContentModal'
 import { useContent } from '../hooks/useContent'
 import axios from 'axios'
+import SideBarIcon from '../icons/sideBarIcon'
 const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 const frontendUrl = import.meta.env.VITE_REACT_APP_FRONTEND_URL
 export function Dashboard() {
@@ -15,12 +16,25 @@ export function Dashboard() {
   const [error, setError] = useState("");
   const [ModalOpen, setModalOpen] = useState(false);
   const {contents, refresh}  = useContent();
+  const [showSideBar, setShowSidebar] = useState<boolean>(false);
   useEffect(()=>{
     refresh();
   }, [ModalOpen])
   return (
     <div className='bg-bgGray-100 min-h-screen min-w-screen flex'>
       <div className='sm:block hidden transition ease-in-out duration-200'>
+        <SideBar />
+      </div>
+      <div className='sm:hidden block absolute py-2 px-6 z-[60]' onClick={() => setShowSidebar(prev => !prev)}>
+        <SideBarIcon />
+      </div>
+      {showSideBar && (
+        <div 
+          className="fixed inset-0 bg-black/40 z-40 sm:hidden"
+          onClick={() => setShowSidebar(false)}
+        />
+      )}
+      <div className={`sm:hidden fixed top-0 left-0 h-full w-64 bg-white z-50 transform transition-transform duration-300  ${showSideBar ? "translate-x-0" : "-translate-x-full hidden"}`}>
         <SideBar />
       </div>
       <div className='pt-5 sm:ml-76 w-full'>
