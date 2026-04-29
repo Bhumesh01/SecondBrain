@@ -14,9 +14,6 @@ router.get("/content", authMiddleware, showContent);
 router.delete("/content/:contentId", authMiddleware, deleteContent);
 router.post("/brain/share", authMiddleware, shareLink);
 router.get("/brain/:shareLink", getLink);
-router.get("/content/:id", authMiddleware,  (req, res, next) => {
-    console.log("CONTENT TYPE ROUTE HIT");
-    next();
-},getContentByType);
+router.get("/content/:id", authMiddleware, getContentByType);
 
 export default router;

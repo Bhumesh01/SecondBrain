@@ -174,7 +174,7 @@ export const getContentByType = async (req:CustomRequest, res: Response)=>{
         const userContent = await Content.find({
             userId: userId,
             type: contentType
-        });
+        }).populate("tags");
         res.status(200).json({
             contents: userContent
         });
