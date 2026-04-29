@@ -15,11 +15,11 @@ function App() {
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/brain/:shareId' element={<AnotherDashboard />}></Route>
-        <Route path='/tweets' element={<ItemWisePage />}></Route>
+        <Route path='/tweet' element={<ItemWisePage />}></Route>
         <Route path='/youtube' element={<ItemWisePage />}></Route>
-        <Route path='/articles' element={<ItemWisePage />}></Route>
-        <Route path='/images' element={<ItemWisePage />}></Route>
-        <Route path='/links' element={<ItemWisePage />}></Route>
+        <Route path='/article' element={<ItemWisePage />}></Route>
+        <Route path='/image' element={<ItemWisePage />}></Route>
+        <Route path='/link' element={<ItemWisePage />}></Route>
       </Routes>
     </BrowserRouter>
   )

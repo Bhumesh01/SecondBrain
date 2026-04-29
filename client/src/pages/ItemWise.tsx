@@ -19,8 +19,7 @@ export default function ItemWisePage(){
     },[]);
     const [data, setData] = useState<ContextTypes[]>([]);
     useEffect(()=>{
-        const raw = location.pathname.split("/")[1];
-        const contentType = raw.slice(0, raw.length-1);
+        const contentType = location.pathname.split("/")[1];
         axios.get(`${url}/api/v1/content/${contentType}`, {
             headers:{
                     "Authorization": localStorage.getItem("token"),
