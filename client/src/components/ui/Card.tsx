@@ -91,7 +91,7 @@ export const Card = (props:CardProps)=>{
                         <div className="flex justify-end pl-3 items-start">
                         <button onClick={deleteCard} className="p-1 hover:bg-gray-300 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" disabled={isDeleting}> <DeleteIcon /></button></div>)}
             </div>
-            <div className="pb-5 flex-1 overflow-y-auto flex flex-col justify-center">
+            <div className="pb-5 flex-1 overflow-y-auto flex flex-col">
                 {props.type === "link"?(<a target="_blank" rel="noopener noreferrer" href={props.link} className="text-lg text-blue-800 hover:text-purpleBlue-500 break-words">{props.link}</a>):props.type === "tweet" && tweetId?(<Tweet id={tweetId} />):props.type === "youtube"&& youTubeId?(<LiteYouTubeEmbed id={youTubeId} title={props.title}poster="maxresdefault" />): props.type === "image" ? (<img src={props.link || "/placeholder.svg"} alt={props.title}className="w-full h-auto rounded-lg object-cover"/>) : ( <div className="text-lg break-words">{props.link}</div>)}
             </div>
             <div className="flex gap-5 flex-wrap">
