@@ -9,32 +9,70 @@ interface CreateContentModalProps {
 }
 
 const url = import.meta.env.VITE_REACT_APP_BACKEND_URL;
-
+const presentName = import.meta.env.VITE_REACT_APP_PRESENT_NAME;
+const cloudName = import.meta.env.VITE_REACT_APP_CLOUD_NAME;
 export function CreateContentModal(props:CreateContentModalProps){
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string|null>(null);
     const [displayMessage, setDisplayMessage] = useState<string|null>(null);
     const titleRef = useRef<HTMLInputElement>(null);
-    const typeRef = useRef<HTMLSelectElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const {refresh} = useContent();
     const tagsRef = useRef<HTMLInputElement>(null);
-
+    const [linkType, setLinkType] = useState<string>();
+    const [img, setImg] = useState<File>();
     useEffect(() => {
       if (props.open) {
         setError(null);
         setDisplayMessage(null);
       }
     }, [props.open]);
-
+    async function convertImg(file:File) {
+      try{
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', presentName);
+        const res = await fetch( `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (!data.secure_url) {
+          throw new Error("Upload failed");
+        }
+        return data.secure_url;
+      }
+      catch(err){
+          setError("Error While converting image, please try again");
+          return null;
+      }
+    }
     async function addContent(){
         try{
+            setIsLoading(true);
             let title = titleRef.current?.value;
-            let type = typeRef.current?.value;
-            let link = linkRef.current?.value;
+            let type = linkType;
+
+            let link;
+            if(linkType==="image"){
+              if(!img){
+                setError("Please select the image");
+                return;
+              }
+              alert("Image uploaded successfully")
+              link = await convertImg(img);
+              if (!link) {
+                setError("Image upload failed");
+                setIsLoading(false);
+                return;
+              }
+              console.log(link);
+            }
+            else{
+              link = linkRef.current?.value;
+            }
             let tags = tagsRef.current?.value?tagsRef.current.value.split(',').map(tag => tag.trim()).filter(tag => tag !== ""): [];
             if(title&&type&&link){
-                setIsLoading(true);
                 const response = await axios.post(`${url}/api/v1/content`, {
                     link, 
                     type,
@@ -128,7 +166,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                             <div className="flex justify-between">
                               <h3 className="flex justify-center items-center mr-5 font-semibold text-lg">Select the content Type: </h3>
                                 <div className="flex-1">
-                                    <select required={true} ref={typeRef} className="w-full mb-2 break-words px-4 py-2 bg-bgGray-200 rounded-2xl border text-black">
+                                    <select required={true} onChange={(e)=>setLinkType(e.target.value)} className="w-full mb-2 break-words px-4 py-2 bg-bgGray-200 rounded-2xl border text-black">
                                       <option value={"article"}>Article</option>
                                       <option value={"image"}>Image</option>
                                       <option value={"document"}>Document</option>
@@ -138,7 +176,15 @@ export function CreateContentModal(props:CreateContentModalProps){
                                     </select>
                                 </div>
                             </div>
-                            <Input ref={linkRef} required={true} placeholder="Enter the Link to save/Contents of body" onChange={()=>{}}/>
+                            {
+                              linkType==="image"?(<div className="flex justify-between items-center">
+                                <h3 className="flex justify-center items-center mr-5 font-semibold text-lg">Choose the image: </h3>
+                                <input onChange={(e)=>{
+                                  if(e.target.files)setImg(e.target.files[0])
+                                  }} className="w-fit mb-2 break-words px-4 py-2 bg-bgGray-200 rounded-2xl border text-black" required={true} type="file" accept="image/*" ></input>
+                              </div>):
+                              (<Input ref={linkRef} required={true} placeholder="Enter the Link to save/Contents of body" onChange={()=>{}}/>)
+                            }
                             <Input ref={tagsRef} required={false} placeholder="Enter tags (comma separated)(optional)" onChange={()=>{}}/>
                             <div  className={`flex justify-center mt-2 ${isLoading ? "opacity-75 cursor-not-allowed" : ""}`}>
                                 <Button loading={isLoading} variant="primary" text={isLoading ? "Adding..." : "Submit"} size="xl" onClick={addContent}/>
