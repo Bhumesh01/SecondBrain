@@ -2,6 +2,7 @@ import React from "react";
 
 interface Props {
   children: React.ReactNode;
+  fallback?: React.ReactNode;
 }
 
 interface State {
@@ -29,11 +30,10 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   render() {
-
     if (this.state.hasError) {
-      return (
-        <div className="p-4 bg-red-100 rounded-xl text-red-600">
-          Failed to load tweet
+      return this.props.fallback || (
+        <div>
+          Something went wrong
         </div>
       );
     }

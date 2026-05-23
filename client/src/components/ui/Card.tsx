@@ -93,7 +93,37 @@ export const Card = (props:CardProps)=>{
                         <button onClick={deleteCard} className="p-1 hover:bg-gray-300 rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" disabled={isDeleting}> <DeleteIcon /></button></div>)}
             </div>
             <div className="pb-5 flex-1 overflow-y-auto flex flex-col">
-                {props.type === "link"?(<a target="_blank" rel="noopener noreferrer" href={props.link} className="text-lg text-blue-800 hover:text-purpleBlue-500 break-words">{props.link}</a>):props.type === "tweet" && tweetId?(<ErrorBoundary><Tweet id={tweetId} /></ErrorBoundary>):props.type === "youtube"&& youTubeId?(<LiteYouTubeEmbed id={youTubeId} title={props.title}poster="maxresdefault" />): props.type === "image" ? (<img src={props.link || "/placeholder.svg"} alt={props.title}className="w-full h-auto rounded-lg object-cover"/>) : ( <div className="text-lg break-words">{props.link}</div>)}
+                {props.type === "link"?(<a target="_blank" rel="noopener noreferrer" href={props.link} className="text-lg text-blue-800 hover:text-purpleBlue-500 break-words">{props.link}</a>):props.type === "tweet" && tweetId?(
+                <ErrorBoundary
+                  fallback={
+                    <div className="p-3 border rounded-xl">
+                      <p className="text-red-500 mb-2">
+                        Failed to load embedded tweet
+                      </p>
+
+                      <a
+                        href={props.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline break-words"
+                      >
+                        Open Tweet
+                      </a>
+                    </div>
+                  }
+                >
+                  <Tweet
+                    id={tweetId}
+                    fallback={
+                      <div className="p-3">
+                        Loading tweet...
+                      </div>
+                    }
+                    onError={(err) => {
+                      console.error("Tweet error:", err);
+                    }}
+                  />
+                </ErrorBoundary>):props.type === "youtube"&& youTubeId?(<LiteYouTubeEmbed id={youTubeId} title={props.title}poster="maxresdefault" />): props.type === "image" ? (<img src={props.link || "/placeholder.svg"} alt={props.title}className="w-full h-auto rounded-lg object-cover"/>) : ( <div className="text-lg break-words">{props.link}</div>)}
             </div>
             <div className="flex gap-5 flex-wrap">
                 {(props.tags||[]).map((tag, index)=><span key={index} className="bg-purpleBlue-300 text-purpleBlue-600 rounded-2xl py-1 px-3">#{tag.title}</span>)}
