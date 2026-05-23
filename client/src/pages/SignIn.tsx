@@ -32,7 +32,7 @@ export function SignIn() {
           username: username,
           password: password,
         })
-        console.log(response.data)
+        // console.log(response.data)
         setDisplayMessage(response.data.message)
         const jwt = response.data.token;
         localStorage.setItem("token", jwt);

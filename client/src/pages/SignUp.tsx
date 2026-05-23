@@ -33,7 +33,7 @@ export function SignUp() {
           username: username,
           password: password,
         })
-        console.log(response.data)
+        // console.log(response.data)
         setDisplayMessage(response.data.message)
         setTimeout(()=>{
             navigate("/signin")

@@ -13,7 +13,7 @@ export function AnotherDashboard() {
         const fetchLink = async () => {
         try {
             const res = await axios.get(`${url}/api/v1/brain/${shareId}`);
-            console.log(res.data);
+            // console.log(res.data);
             setData(res.data.message)
             setLoading(false);
         } catch (err) {

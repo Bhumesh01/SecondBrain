@@ -19,7 +19,7 @@ export function CreateContentModal(props:CreateContentModalProps){
     const linkRef = useRef<HTMLInputElement>(null);
     const {refresh} = useContent();
     const tagsRef = useRef<HTMLInputElement>(null);
-    const [linkType, setLinkType] = useState<string>();
+    const [linkType, setLinkType] = useState<string>("article");
     const [img, setImg] = useState<File>();
     useEffect(() => {
       if (props.open) {
@@ -66,7 +66,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                 setIsLoading(false);
                 return;
               }
-              console.log(link);
+              // console.log(link);
             }
             else{
               link = linkRef.current?.value;
@@ -83,7 +83,7 @@ export function CreateContentModal(props:CreateContentModalProps){
                         "Authorization": localStorage.getItem("token"),
                     }
                 })
-                console.log(response.data);
+                // console.log(response.data);
                 setDisplayMessage(response.data.message)
                 setTimeout(()=>{
                     refresh();

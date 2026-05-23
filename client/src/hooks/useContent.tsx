@@ -17,7 +17,7 @@ export function useContent(){
                         "Authorization": localStorage.getItem("token"),
                     }
             }).then((response)=>{
-                setContents(response.data.contents)})
+                setContents(response.data.contents)}).catch((err)=>console.log(err));
     }
     try{
         useEffect(function(){
@@ -31,7 +31,8 @@ export function useContent(){
         return {contents, refresh};
      }
     catch(error:any){
-        setContents(error);
+        setContents([]);
+        console.error("Error fetching content:", error);
         return {contents, refresh};
     }
 }
