@@ -1,12 +1,13 @@
 import genHash from "../config/hash";
 import mongoose, {Types} from 'mongoose';
-import { Content, Link, Tag } from "../models/db";
+import { Content, Link, Tag, User } from "../models/db";
 import {Request, Response} from 'express';
 import {z} from 'zod';
+import { deleteRecords, getRecords, insertRecords } from "../services/semanticSearch";
 // For Adding new content
 
 // const objectIdString = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId format");
-const contentZodSchema = z.object({
+export const contentZodSchema = z.object({
     link: z.string().min(7, "Link is required"),
     type: z.enum(['video', 'article', 'image', 'audio', 'document', 'tweet', 'youtube', 'link']),
     title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title cannot exceed 200 characters"),
@@ -39,13 +40,25 @@ export const postContent = async(req: CustomRequest,res: Response)=>{
         });
         tagIds = await Promise.all(tagPromises);
         }
-        await Content.create({
+        const result = await Content.create({
             link: content.link,
             type: content.type,
             title: content.title,
             userId: userId,
             tags : tagIds
         });
+        const mongoDB_ID = result._id;
+        try{
+            await insertRecords({
+                link: content.link,
+                type: content.type,
+                title: content.title,
+                tags : content.tags
+            }, userId?.toString()!, mongoDB_ID.toString());
+        }
+        catch(error){
+            console.log('Pinecone sync failed:', error);
+        }
         res.status(200).json({
             message: "Content Added Successfully",
         });
@@ -91,6 +104,7 @@ export const deleteContent = async(req: CustomRequest,res: Response)=>{
         if (response.deletedCount === 0) {
             return res.status(403).json({ message: "No such content exists" });
         }
+        await deleteRecords(req.userId?.toString()!, contentId);
         return res.status(200).json({
             message: "Content Deleted Successfully"
         });
@@ -185,3 +199,74 @@ export const getContentByType = async (req:CustomRequest, res: Response)=>{
         });
     }
 }
+
+// semantic search
+export const getSemanticSearch = async(req:CustomRequest, res: Response)=>{
+    try{
+        const userId = req.userId;
+        const query = req.body.query;
+        if(!query){
+            return res.status(400).json({
+                message: "Please Enter the record to search"
+            })
+        }
+        if(!userId){
+            return res.status(404).json({
+                message: "Unauthorized"
+            })
+        }
+        const searchResponse = await getRecords(query, userId);
+        return res.status(200).json(searchResponse);
+    }
+    catch(error){
+        return res.status(500).json({
+            message: error
+        });
+    }
+}
+
+// test
+// export const migrate = async(req:CustomRequest, res: Response)=>{
+//     try{
+//         const userId = req.userId;
+//         if(!userId){
+//             return res.status(404).json({
+//                 message: "Unauthorized"
+//             })
+//         }
+//         const contents = await Content.find({userId: userId}).populate("tags", "title");;
+//         let migrated = 0;
+//         let failed = 0;
+//         for(const content of contents){
+//             const tags = content.tags.map(
+//                 (tag: any) => tag.title
+//             );
+//             const data:z.infer<typeof contentZodSchema>  = {
+//                 link: content.link as string,
+//                 title: content.title as string,
+//                 type: content.type as  z.infer<typeof contentZodSchema>["type"],
+//                 tags: tags
+//             };
+//             try{
+//                 await insertRecords(data, userId, content._id.toString());
+//                 migrated++;
+//             }
+//             catch(err){
+//                 console.error(
+//                     `Failed: ${content._id}`,
+//                     err
+//                 );
+//                 failed++;
+//             }
+//         }
+//         return res.status(200).json({
+//     message: "Migration completed",
+//     migrated
+// });
+//     }
+//     catch(error){
+//         return res.status(500).json({
+//             message: error
+//         });
+//     }
+// }
