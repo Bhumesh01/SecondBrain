@@ -40,34 +40,36 @@ export function Dashboard() {
       </div>
       <div className='pt-5 sm:ml-76 w-full'>
         <div className=' flex p-2 pt-5 flex-wrap'>
-          <div className='flex-[2] font-bold text-3xl pl-4'>
+          <div className='flex-[1] font-bold text-3xl pl-4'>
             All Notes
           </div>
-          <div className='flex-[3] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
-            <div className="flex items-center w-full max-w-lg bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div className='flex-[4] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
+            <div className="flex items-center w-fit max-w-lg bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
   
               <input type="text" placeholder="Search notes, links, videos..." className=" flex-1 px-4 py-3 outline-none text-gray-700 placeholder:text-gray-400" />
 
-              <button className=" h-full px-5 bg-purpleBlue-500 hover:bg-purpleBlue-600 text-white transition-colors flex items-center justify-center">
+              <button className="bg-purpleBlue-600 h-full px-5 transition duration-200 text-white hover:bg-purpleBlue-500 active:scale-75 active:bg-purpleBlue-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                 <SearchIcon />
               </button>    
             </div>
-            <Button loading={loading} variant="secondary" size="lg" text="Share Brain" onClick={()=>{
-              setLoading(true);
-              axios.post(`${url}/api/v1/brain/share`, {
-                share: "true"
-              }, {
-                headers:{
-                  Authorization: localStorage.getItem("token")
-                }
-              }).then(response=>{
-                let shareUrl = response.data.shareUrl.split("brain/")[1];
-                navigator.clipboard.writeText(`${frontendUrl}/brain/${shareUrl}`);
-                alert(`Url copied to clipboard: ${frontendUrl}/brain/${shareUrl}`);
-                setLoading(false);
-              })
-            }} startIcon={<ShareIcon />}></Button>
-            <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
+            <div className='flex justify-around gap-5 items-center'>
+              <Button loading={loading} variant="secondary" size="lg" text="Share Brain" onClick={()=>{
+                setLoading(true);
+                axios.post(`${url}/api/v1/brain/share`, {
+                  share: "true"
+                }, {
+                  headers:{
+                    Authorization: localStorage.getItem("token")
+                  }
+                }).then(response=>{
+                  let shareUrl = response.data.shareUrl.split("brain/")[1];
+                  navigator.clipboard.writeText(`${frontendUrl}/brain/${shareUrl}`);
+                  alert(`Url copied to clipboard: ${frontendUrl}/brain/${shareUrl}`);
+                  setLoading(false);
+                })
+              }} startIcon={<ShareIcon />}></Button>
+              <Button variant="primary" size="lg" text="Add Content" onClick={()=>{setModalOpen(true)}} startIcon={<PlusIcon />}></Button>
+            </div>
           </div>
         </div>
         <CreateContentModal open={ModalOpen} onClose={()=>{setModalOpen(false)}}/>
