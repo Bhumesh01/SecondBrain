@@ -200,6 +200,26 @@ export const getContentByType = async (req:CustomRequest, res: Response)=>{
     }
 }
 
+
+interface PineconeHit {
+  _id: string;
+  _score: number;
+  fields?: Record<string, any>; 
+  metadata?: Record<string, any>; 
+  values?: number[];
+}
+
+interface PineconeSearchResponse {
+  result: {
+    hits: PineconeHit[];
+  };
+  usage: {
+    readUnits: number;
+    embedTotalTokens: number;
+    rerankUnits: number;
+  };
+}
+
 // semantic search
 export const getSemanticSearch = async(req:CustomRequest, res: Response)=>{
     try{
@@ -215,8 +235,17 @@ export const getSemanticSearch = async(req:CustomRequest, res: Response)=>{
                 message: "Unauthorized"
             })
         }
-        const searchResponse = await getRecords(query, userId);
-        return res.status(200).json(searchResponse);
+        const searchResponse = (await getRecords(query, userId)) as unknown as PineconeSearchResponse;
+        const contentIDS:Types.ObjectId[] = searchResponse.result.hits.map((id)=>{
+            return new Types.ObjectId(id._id);
+        })
+        const result = await Content.find({
+            _id: { $in: contentIDS },
+            userId
+        }).populate("tags", "title");
+        return res.status(200).json({
+            contents: result
+        });
     }
     catch(error){
         return res.status(500).json({
