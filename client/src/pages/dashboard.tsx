@@ -8,6 +8,7 @@ import { CreateContentModal } from '../components/ui/CreateContentModal'
 import { useContent } from '../hooks/useContent'
 import axios from 'axios'
 import SideBarIcon from '../icons/sideBarIcon'
+import { SearchIcon } from '../icons/searchIcon'
 const url = import.meta.env.VITE_REACT_APP_BACKEND_URL
 const frontendUrl = import.meta.env.VITE_REACT_APP_FRONTEND_URL
 export function Dashboard() {
@@ -21,7 +22,7 @@ export function Dashboard() {
     refresh();
   }, [ModalOpen])
   return (
-    <div className='bg-bgGray-100 min-h-screen min-w-screen flex'>
+    <div className='bg-bgGray-100 min-h-screen flex'>
       <div className='sm:block hidden transition ease-in-out duration-200'>
         <SideBar />
       </div>
@@ -39,10 +40,18 @@ export function Dashboard() {
       </div>
       <div className='pt-5 sm:ml-76 w-full'>
         <div className=' flex p-2 pt-5 flex-wrap'>
-          <div className='flex-[3] font-bold text-3xl pl-5'>
+          <div className='flex-[2] font-bold text-3xl pl-4'>
             All Notes
           </div>
-          <div className='flex-[2] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
+          <div className='flex-[3] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
+            <div className="flex items-center w-full max-w-lg bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+  
+              <input type="text" placeholder="Search notes, links, videos..." className=" flex-1 px-4 py-3 outline-none text-gray-700 placeholder:text-gray-400" />
+
+              <button className=" h-full px-5 bg-purpleBlue-500 hover:bg-purpleBlue-600 text-white transition-colors flex items-center justify-center">
+                <SearchIcon />
+              </button>    
+            </div>
             <Button loading={loading} variant="secondary" size="lg" text="Share Brain" onClick={()=>{
               setLoading(true);
               axios.post(`${url}/api/v1/brain/share`, {
