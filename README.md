@@ -4,6 +4,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-brightgreen)
 ![Express](https://img.shields.io/badge/Express.js-Backend-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-success)
+![Pinecone](https://img.shields.io/badge/Pinecone-VectorDB-00B4D8)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Language-blue)
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-Build-lightyellow)
@@ -13,12 +14,13 @@ Second Brain is a full-stack productivity application that helps users organize 
 
 Watch the full demo here: [Google Drive Video](https://drive.google.com/file/d/1mlITm7Lf_kdK-BQdmlTfOLheBr-usBTk/view?usp=sharing)
 
-## 🚀 Key Features
-- 🔗 Save and categorize web links with previews
+## �🚀 Key Features
+- 🔗 Save and categorize web links
 - 🐦 Embed and store tweets using `react-tweet`
 - 📺 Save YouTube videos with `react-lite-youtube-embed`
 - 🔐 User authentication with JWT and bcrypt
 - 🏷️ Tagging and organization system
+- 🤖 AI-powered semantic search using Pinecone vector database
 - ⚡ Blazing fast performance with Vite
 - 🛡️ Input validation with Zod
 
@@ -39,6 +41,7 @@ Watch the full demo here: [Google Drive Video](https://drive.google.com/file/d/1
 |------------|---------|
 | Express.js v5 | Server framework |
 | MongoDB + Mongoose | Database |
+| Pinecone | Vector database for semantic search |
 | JWT + bcrypt | Authentication |
 | Zod | Input validation |
 | CORS | Security middleware |
@@ -59,11 +62,6 @@ wscode/
     └── tsconfig.json         # TypeScript config
 ```
 ## 🚀 Getting Started
-
-### Prerequisites
-- Node.js v18+
-- MongoDB (Atlas)
-- Git
 
 ### Installation
 ```bash
@@ -92,6 +90,9 @@ VITE_REACT_APP_FRONTEND_URL=http://localhost:5173
 PORT = 3000
 DBurl = your_mongodb_connection_string
 JWT_PASSWORD = your_jwt_password
+PINECONE_DB_API_KEY = your_pinecone_db_api_key
+PINECONE_DB_HOST = your_pinecone_db_host
+PINECONE_DB_INDEX_NAME = your_pinecone_db_index_name
 ```
 ## 🔄 Running Development Servers
 ### Start Backend:
