@@ -44,7 +44,7 @@ export function Dashboard() {
             All Notes
           </div>
           <div className='flex-[4] flex sm:flex-row flex-col gap-5 lg:gap-2 justify-around xl:flex-[1.5]  2xl:flex-[1]'>
-            <div className="flex items-center w-fit max-w-lg bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div className="flex items-center w-full max-w-lg bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
   
               <input type="text" placeholder="Search notes, links, videos..." className=" flex-1 px-4 py-3 outline-none text-gray-700 placeholder:text-gray-400" />
 
