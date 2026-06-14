@@ -243,6 +243,17 @@ export const getSemanticSearch = async(req:CustomRequest, res: Response)=>{
             _id: { $in: contentIDS },
             userId
         }).populate("tags", "title");
+        const rankMap = new Map(
+            contentIDS.map((id, index) => [
+                id.toString(),
+                index
+            ])
+        );
+        
+        result.sort((a, b) =>
+            rankMap.get(a._id.toString())! -
+            rankMap.get(b._id.toString())!
+        );
         return res.status(200).json({
             contents: result
         });
